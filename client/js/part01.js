@@ -23,18 +23,22 @@ const data = [
 
 const navigation = getNode('.navigation');
 // const list = getNodes('.navigation > li');
+const visualImage = getNode('.visual img');
 
 const makeArray = arrayLike => Array.from(arrayLike);
 
 const handler = e => {
   let target = e.target.closest('li');
+  if (!target) return;
+
+  let index = attr(target, 'data-index');
   let list = navigation.children;
   let arr = makeArray(list);
 
-  if (!target) return;
-
   arr.forEach(item => removeClass(item, 'is-active'));
 
+  attr(visualImage, 'src', `./assets/part01/visual${index}.jpg`);
+  attr(visualImage, 'alt', data[index - 1].alt);
   addClass(target, 'is-active');
 };
 
